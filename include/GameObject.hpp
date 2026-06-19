@@ -9,7 +9,7 @@ class GameObject {
 protected:
   SDL_FRect hitbox;
   tebya::Texture *texture; // this is owned by TextureManager
-  bool isAlive = true;
+  bool alive = true;
   float angle = 0; // in radians
   float speed = 1;
   float rotation_speed = 0;
@@ -17,6 +17,9 @@ protected:
 public:
   virtual void update();
   virtual void render();
+  virtual void kill();
+  virtual bool isAlive() const;
+
   virtual ~GameObject() = default;
 }; // end of class GameObject
 

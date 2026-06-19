@@ -20,4 +20,7 @@ void GameObject::render() {
   texture->render(g, hitbox, angle);
 }
 
+void GameObject::kill() { alive = false; }
+bool GameObject::isAlive() const { return alive; }
+
 } // namespace Asteroids

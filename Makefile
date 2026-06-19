@@ -1,6 +1,6 @@
 TARGET   := bin/Asteroids
 CXX      := g++
-CXXFLAGS := -std=c++17 -Wall -Wextra
+CXXFLAGS := -std=c++20 -Wall -Wextra
 INCLUDES := -Iinclude -ITebyaEngine/include
 LDFLAGS  := -LTebyaEngine/lib -lTebya \
             -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer

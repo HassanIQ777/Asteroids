@@ -1,0 +1,3 @@
+# TebyaEngine/compile_flags.txt
+-std=c++17
+-Iinclude

@@ -23,4 +23,12 @@ void GameObject::render() {
 void GameObject::kill() { alive = false; }
 bool GameObject::isAlive() const { return alive; }
 
+void GameObject::takeDamage(float amount) {
+  hp -= amount;
+  if (hp < 0) {
+    hp = 0;
+    alive = false;
+  }
+}
+
 } // namespace Asteroids

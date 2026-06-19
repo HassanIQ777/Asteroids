@@ -13,12 +13,14 @@ protected:
   float angle = 0, move_angle = 0; // in radians
   float speed = 1;
   float rotation_speed = 0;
+  float hp = 0;
 
 public:
   virtual void update();
   virtual void render();
   virtual void kill();
   virtual bool isAlive() const;
+  virtual void takeDamage(float amount);
 
   virtual ~GameObject() = default;
 

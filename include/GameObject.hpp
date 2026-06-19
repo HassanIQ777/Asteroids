@@ -8,10 +8,16 @@ namespace Asteroids {
 class GameObject {
 protected:
   SDL_FRect hitbox;
-  tebya::Texture *texture;
+  tebya::Texture *texture; // this is owned by TextureManager
   bool isAlive = true;
-  float angle;
-  float speed;
+  float angle = 0; // in radians
+  float speed = 1;
+  float rotation_speed = 0;
+
+public:
+  virtual void update();
+  virtual void render();
+  virtual ~GameObject() = default;
 }; // end of class GameObject
 
 } // namespace Asteroids

@@ -21,6 +21,11 @@ public:
   virtual bool isAlive() const;
 
   virtual ~GameObject() = default;
+
+  // setters and getters
+  SDL_FRect getHitbox() const { return hitbox; }
+  float getSpeed() const { return speed; }
+
 }; // end of class GameObject
 
 } // namespace Asteroids

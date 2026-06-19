@@ -19,6 +19,7 @@ public:
   void onHit(Asteroid *a);
   bool checkCollision(SDL_FRect other); // for bullets/player to query (and also
                                         // other asteroids)
+  void spawnWave(int count, tebya::Texture *tex);
   bool empty();
 
 }; // end of class AsteroidManager

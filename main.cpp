@@ -30,6 +30,9 @@ int main() {
       g.running = false;
     }
     asteroid_manager.update(g);
+    if (asteroid_manager.size() < 50) {
+      asteroid_manager.spawnWave(10, tm.getTexture(0));
+    }
 
     // --- draw ---
     asteroid_manager.render(g);

@@ -3,6 +3,7 @@
 #include "Tebya/Globals.hpp"
 #include <SDL2/SDL_rect.h>
 #include <algorithm>
+#include <cstddef>
 
 namespace Asteroids {
 
@@ -73,13 +74,15 @@ void AsteroidManager::spawnWave(int count, tebya::Texture *tex) {
 
     float size = Random::getdouble(50, 200);
     SDL_FRect hitbox = {x, y, size, size};
-    float speed = Random::getdouble(50, 150); // pixels/sec, not 0.5–3
+    float speed = Random::getdouble(30, 150); // pixels/sec, not 0.5–3
 
     asteroids.push_back(Asteroid::create(hitbox, speed, asteroid_texture));
     count--;
   }
 }
 
-bool AsteroidManager::empty() { return asteroids.empty(); }
+bool AsteroidManager::empty() const { return asteroids.empty(); }
+
+size_t AsteroidManager::size() const { return asteroids.size(); }
 
 } // namespace Asteroids

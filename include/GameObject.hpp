@@ -10,7 +10,7 @@ protected:
   SDL_FRect hitbox;
   tebya::Texture *texture; // this is owned by TextureManager
   bool alive = true;
-  float angle = 0; // in radians
+  float angle = 0, move_angle = 0; // in radians
   float speed = 1;
   float rotation_speed = 0;
 

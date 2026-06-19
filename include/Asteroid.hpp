@@ -13,7 +13,8 @@ public:
     hitbox = hitbox_;
     speed = speed_;
     texture = tex;
-    angle = (float)Random::getdouble(0, 2 * M_PI);    // random direction
+    angle = (float)Random::getdouble(0, 2 * M_PI); // random direction
+    move_angle = angle;
     rotation_speed = (float)Random::getdouble(-2, 2); // can spin either way
     size_modifier = (float)Random::getdouble(1, 5);
   }

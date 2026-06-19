@@ -7,8 +7,8 @@ void GameObject::update() {
   tebya::Globals &g = tebya::Globals::getInstance();
   float dt = g.delta_time.deltaTime();
 
-  hitbox.x += cos(angle) * speed * dt;
-  hitbox.y += sin(angle) * speed * dt;
+  hitbox.x += cos(move_angle) * speed * dt;
+  hitbox.y += sin(move_angle) * speed * dt;
   angle += rotation_speed * dt;
 }
 

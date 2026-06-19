@@ -3,6 +3,7 @@
 #include "Asteroid.hpp"
 #include "Tebya/Globals.hpp"
 #include "Tebya/Texture.hpp"
+#include <cstddef>
 #include <memory>
 #include <vector>
 
@@ -20,7 +21,8 @@ public:
   bool checkCollision(SDL_FRect other); // for bullets/player to query (and also
                                         // other asteroids)
   void spawnWave(int count, tebya::Texture *tex);
-  bool empty();
+  size_t size() const;
+  bool empty() const;
 
 }; // end of class AsteroidManager
 

@@ -49,13 +49,15 @@ void AsteroidManager::onHit(Asteroid *a) {
 void AsteroidManager::spawnWave(int count, tebya::Texture *tex) {
   asteroid_texture = tex; // set it here, or in constructor
   tebya::Globals &g = tebya::Globals::getInstance();
-  SDL_FRect viewport{-g.camera.x, -g.camera.y, (float)g.width,
-                     (float)g.height};
+  SDL_FRect viewport{-g.camera.x, -g.camera.y, (float)g.width, (float)g.height};
 
   // Spawn strictly outside by picking an edge instead of rejection sampling
   while (count > 0) {
-    float size = Random::getdouble(
-        50, 200); // this is bad but we need to calculate size from the start :L
+    float size = std::max(
+        20.0f,
+        (float)Random::normalDistribution(
+            100,
+            25)); // this is bad but we need to calculate size from the start :L
     float x, y;
     int edge = Random::getint(0, 3);
     float margin = size; // this is how far we push each asteroid on spawn (to

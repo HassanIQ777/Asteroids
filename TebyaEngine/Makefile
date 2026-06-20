@@ -9,23 +9,26 @@ AR       := ar
 ARFLAGS  := rcs
 
 SRC_DIR  := src
-OBJ_DIR  := obj
 LIB_DIR  := lib
-LIB      := $(LIB_DIR)/libTebya.a
-
-SRCS     := $(wildcard $(SRC_DIR)/*.cpp)
-OBJS     := $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SRCS))
+BUILD_MODE := release
 
 # ============================================================
 #  Build modes
 # ============================================================
 ifeq ($(MAKECMDGOALS), debug)
+    BUILD_MODE := debug
     CXXFLAGS += -g -O0 -DDEBUG -fsanitize=address,undefined
     $(info [Tebya] Building in DEBUG mode — buckle up)
 else
     CXXFLAGS += -O2 -DNDEBUG
     $(info [Tebya] Building in RELEASE mode)
 endif
+
+OBJ_DIR  := obj/$(BUILD_MODE)
+LIB      := $(LIB_DIR)/$(BUILD_MODE)/libTebya.a
+
+SRCS     := $(wildcard $(SRC_DIR)/*.cpp)
+OBJS     := $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SRCS))
 
 # ============================================================
 #  Rules
@@ -44,7 +47,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	@$(CXX) $(CXXFLAGS) -c $< -o $@
 
 dirs:
-	@mkdir -p $(OBJ_DIR) $(LIB_DIR)
+	@mkdir -p $(OBJ_DIR) $(LIB_DIR)/$(BUILD_MODE)
 
 clean:
 	@rm -rf $(OBJ_DIR) $(LIB_DIR)

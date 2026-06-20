@@ -29,6 +29,8 @@ public:
   void render(Globals &globals, const SDL_FRect &dest) const;
   // Copies the texture with a rotation of angle radians
   void render(Globals &globals, const SDL_FRect &dest, float angle) const;
+  void render(Globals &globals, const SDL_Rect &src, const SDL_FRect &dest,
+              float angle) const;
   void setFlip(SDL_RendererFlip flip);
 };
 

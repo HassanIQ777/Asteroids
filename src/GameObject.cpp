@@ -1,4 +1,5 @@
 #include "../include/GameObject.hpp"
+#include "Tebya/Colors.hpp"
 #include <SDL2/SDL_rect.h>
 #include <cmath>
 
@@ -21,6 +22,10 @@ void GameObject::render() {
   SDL_FRect render_pos = {hitbox.x + g.camera.x, hitbox.y + g.camera.y,
                           hitbox.w, hitbox.h};
   texture->render(g, render_pos, angle);
+
+#ifdef DEBUG
+  g.renderer.drawRectF(render_pos, tebya::Colors::DebugGreen);
+#endif
 }
 
 void GameObject::kill() { alive = false; }

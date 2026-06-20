@@ -5,8 +5,10 @@
 #include "Tebya/Texture.hpp"
 #include "Tebya/TextureManager.hpp"
 #include "TebyaEngine/Tebya.hpp"
+#include <SDL2/SDL_render.h>
 #include <algorithm>
 #include <memory>
+#include <string>
 
 using namespace tebya;
 
@@ -32,6 +34,8 @@ int main() {
       (float)g.width * 0.5f - (player_hitbox.x + player_hitbox.w * 0.5f);
   g.camera.y =
       (float)g.height * 0.5f - (player_hitbox.y + player_hitbox.h * 0.5f);
+
+  Text text_info{g, "assets/Xirod.otf", 30};
   //
 
   while (g.running) {
@@ -47,8 +51,9 @@ int main() {
     player.handleMovement(g);
 
     asteroid_manager.update(g, player);
-    if (asteroid_manager.size() < 50) {
+    if (static Timer t; asteroid_manager.size() < 100 && t.elapsed() > 1) {
       asteroid_manager.spawnWave(10, tm.getTexture(0));
+      t.restart();
     }
     player_hitbox = player.getHitbox();
     float target_camera_x =
@@ -62,6 +67,8 @@ int main() {
     // --- draw ---
     player.render();
     asteroid_manager.render(g);
+    text_info.render("Asteroids: " + std::to_string(asteroid_manager.size()), 5,
+                     5, Colors::Amethyst);
 
     present();
   }

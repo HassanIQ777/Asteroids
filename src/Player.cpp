@@ -1,5 +1,6 @@
 #include "../include/Player.hpp"
 #include "Math.hpp"
+#include "Tebya/Colors.hpp"
 #include "Tebya/Input.hpp"
 #include <algorithm>
 
@@ -13,6 +14,10 @@ void Player::render() {
   SDL_FRect render_pos = {hitbox.x + g.camera.x, hitbox.y + g.camera.y,
                           hitbox.w, hitbox.h};
   texture->render(g, render_pos, angle + degreeToRad(90.0f));
+
+#ifdef DEBUG
+  g.renderer.drawRectF(render_pos, tebya::Colors::DebugGreen);
+#endif
 }
 
 void Player::handleMovement(tebya::Globals &g) {

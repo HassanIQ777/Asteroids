@@ -25,6 +25,14 @@ void Texture::render(Globals &globals, const SDL_FRect &dest,
   SDL_RenderCopyExF(globals.renderer.r, texture, NULL, &dest,
                     angle * radians_to_degrees, NULL, flip);
 }
+
+void Texture::render(Globals &globals, const SDL_Rect &src,
+                     const SDL_FRect &dest, float angle) const {
+  constexpr float radians_to_degrees = 180.0f / M_PI;
+  SDL_RenderCopyExF(globals.renderer.r, texture, &src, &dest,
+                    angle * radians_to_degrees, NULL, flip);
+}
+
 void Texture::setFlip(SDL_RendererFlip flip) { this->flip = flip; }
 
 } // namespace tebya

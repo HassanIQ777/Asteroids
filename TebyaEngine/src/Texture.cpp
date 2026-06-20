@@ -21,8 +21,9 @@ void Texture::render(Globals &globals, const SDL_FRect &dest) const {
 
 void Texture::render(Globals &globals, const SDL_FRect &dest,
                      float angle) const {
-  SDL_RenderCopyExF(globals.renderer.r, texture, NULL, &dest, angle, NULL,
-                    flip);
+  constexpr float radians_to_degrees = 180.0f / M_PI;
+  SDL_RenderCopyExF(globals.renderer.r, texture, NULL, &dest,
+                    angle * radians_to_degrees, NULL, flip);
 }
 void Texture::setFlip(SDL_RendererFlip flip) { this->flip = flip; }
 

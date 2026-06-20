@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SDL2/SDL_rect.h>
+#include <cmath>
 namespace Asteroids {
 
 struct vec2 {
@@ -19,8 +20,8 @@ inline float degreeToRad(float angle_degrees) {
 }
 
 inline float radToDegree(float angle_rad) {
-  constexpr float to_rad = 180.0f / M_PI;
-  return angle_rad * to_rad;
+  constexpr float to_degrees = 180.0f / M_PI;
+  return angle_rad * to_degrees;
 }
 
 } // namespace Asteroids

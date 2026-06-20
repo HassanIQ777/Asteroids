@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Asteroid.hpp"
+#include "Player.hpp"
 #include "Tebya/Globals.hpp"
 #include "Tebya/Texture.hpp"
 #include <cstddef>
@@ -15,7 +16,7 @@ class AsteroidManager {
 
 public:
   AsteroidManager();
-  void update(tebya::Globals &g);
+  void update(tebya::Globals &g, Player &player);
   void render(tebya::Globals &g);
   void onHit(Asteroid *a);
   bool checkCollision(SDL_FRect other); // for bullets/player to query (and also

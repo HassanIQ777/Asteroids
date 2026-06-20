@@ -1,5 +1,6 @@
 #include "Tebya/Texture.hpp"
 #include <SDL2/SDL_render.h>
+#include <cmath>
 
 namespace tebya {
 

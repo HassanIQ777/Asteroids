@@ -11,15 +11,15 @@ protected:
   tebya::Texture *texture; // this is owned by TextureManager
   bool alive = true;
   float angle = 0, move_angle = 0; // in radians
-  float speed = 1;
+  float speed = 0;
   float rotation_speed = 0;
   float hp = 0;
 
 public:
   virtual void update();
   virtual void render();
-  virtual void kill();
-  virtual bool isAlive() const;
+  void kill();
+  bool isAlive() const;
   virtual void takeDamage(float amount);
 
   virtual ~GameObject() = default;

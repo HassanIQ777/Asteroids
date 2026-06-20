@@ -1,5 +1,6 @@
 #include "../include/AsteroidManager.hpp"
 #include "Asteroid.hpp"
+#include "Math.hpp"
 #include "Tebya/Globals.hpp"
 #include <SDL2/SDL_rect.h>
 #include <algorithm>
@@ -11,10 +12,13 @@ AsteroidManager::AsteroidManager() {
   // implement later
 }
 
-void AsteroidManager::update(tebya::Globals &g) {
+void AsteroidManager::update(tebya::Globals &g, Player &player) {
   if (empty()) // for some reason if we don't do this it seg faults. Hmmmmm....
     return;
-  for (auto &a : asteroids) {
+  for (std::unique_ptr<Asteroid> &a : asteroids) {
+    if (dist2rects_sq(a->getHitbox(), player.getHitbox()) > 1500.0f * 1500.0f) {
+      a->kill();
+    }
     a->update();
   }
 
@@ -49,9 +53,12 @@ void AsteroidManager::spawnWave(int count, tebya::Texture *tex) {
 
   // Spawn strictly outside by picking an edge instead of rejection sampling
   while (count > 0) {
+    float size = Random::getdouble(
+        50, 200); // this is bad but we need to calculate size from the start :L
     float x, y;
     int edge = Random::getint(0, 3);
-    float margin = 60.0f;
+    float margin = size; // this is how far we push each asteroid on spawn (to
+                         // prevent it suddenly apprearing on-screen)
 
     switch (edge) {
     case 0:
@@ -72,7 +79,6 @@ void AsteroidManager::spawnWave(int count, tebya::Texture *tex) {
       break; // right
     }
 
-    float size = Random::getdouble(50, 200);
     SDL_FRect hitbox = {x, y, size, size};
     float speed = Random::getdouble(30, 150); // pixels/sec, not 0.5–3
 

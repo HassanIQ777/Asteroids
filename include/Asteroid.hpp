@@ -17,6 +17,7 @@ public:
     move_angle = angle;
     rotation_speed = (float)Random::getdouble(-2, 2); // can spin either way
     size_modifier = (float)Random::getdouble(1, 5);
+    hp = Random::getdouble(1, 3) * size_modifier; // larger = harder to destroy
   }
 
 public:

@@ -24,4 +24,6 @@ inline float radToDegree(float angle_rad) {
   return angle_rad * to_degrees;
 }
 
+inline float lerp(float a, float b, float f) { return a + f * (b - a); }
+
 } // namespace Asteroids

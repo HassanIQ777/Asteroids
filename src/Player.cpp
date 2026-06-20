@@ -10,7 +10,9 @@ void Player::render() {
     return;
 
   tebya::Globals &g = tebya::Globals::getInstance();
-  texture->render(g, hitbox, angle + degreeToRad(90.0f));
+  SDL_FRect render_pos = {hitbox.x + g.camera.x, hitbox.y + g.camera.y,
+                          hitbox.w, hitbox.h};
+  texture->render(g, render_pos, angle + degreeToRad(90.0f));
 }
 
 void Player::handleMovement(tebya::Globals &g) {
@@ -18,11 +20,11 @@ void Player::handleMovement(tebya::Globals &g) {
   // Propel the player (Add speed)
   if (g.input.isKeyPressed(tebya::KeyCode::UP)) {
     speed += 1500 * dt;
-    speed = std::min(speed, 600.0f); // terminal velocity
+    speed = std::min(speed, 900.0f); // terminal velocity
   }
 
   if (g.input.isKeyPressed(tebya::KeyCode::DOWN)) {
-    speed *= 0.93f;
+    speed *= 0.96f;
   }
 
   // Change angle
@@ -35,7 +37,7 @@ void Player::handleMovement(tebya::Globals &g) {
     move_angle += angle_amount;
 
   angle = move_angle;
-  speed *= 0.98f; // friction (i guess...)
+  speed *= 0.99f; // friction (i guess...)
 
   // SHOOT BULLETS
   if (g.input.isKeyPressed(tebya::KeyCode::SPACE)) {

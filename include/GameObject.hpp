@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Math.hpp"
 #include "Tebya/Texture.hpp"
 #include <SDL2/SDL_rect.h>
 
@@ -28,6 +29,10 @@ public:
   SDL_FRect getHitbox() const { return hitbox; }
   float getSpeed() const { return speed; }
 
+  void setPosition(float x, float y) {
+    hitbox.x = x;
+    hitbox.y = y;
+  }
 }; // end of class GameObject
 
 } // namespace Asteroids

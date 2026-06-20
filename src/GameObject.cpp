@@ -1,4 +1,5 @@
 #include "../include/GameObject.hpp"
+#include <SDL2/SDL_rect.h>
 #include <cmath>
 
 namespace Asteroids {
@@ -17,7 +18,9 @@ void GameObject::render() {
     return;
 
   tebya::Globals &g = tebya::Globals::getInstance();
-  texture->render(g, hitbox, angle);
+  SDL_FRect render_pos = {hitbox.x + g.camera.x, hitbox.y + g.camera.y,
+                          hitbox.w, hitbox.h};
+  texture->render(g, render_pos, angle);
 }
 
 void GameObject::kill() { alive = false; }

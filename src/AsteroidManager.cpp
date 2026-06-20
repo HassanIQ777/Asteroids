@@ -16,7 +16,7 @@ void AsteroidManager::update(tebya::Globals &g, Player &player) {
   if (empty()) // for some reason if we don't do this it seg faults. Hmmmmm....
     return;
   for (std::unique_ptr<Asteroid> &a : asteroids) {
-    if (dist2rects_sq(a->getHitbox(), player.getHitbox()) > 1500.0f * 1500.0f) {
+    if (dist2rects_sq(a->getHitbox(), player.getHitbox()) > 2500.0f * 2500.0f) {
       a->kill();
     }
     a->update();
@@ -49,7 +49,8 @@ void AsteroidManager::onHit(Asteroid *a) {
 void AsteroidManager::spawnWave(int count, tebya::Texture *tex) {
   asteroid_texture = tex; // set it here, or in constructor
   tebya::Globals &g = tebya::Globals::getInstance();
-  SDL_FRect screen{0, 0, (float)g.width, (float)g.height};
+  SDL_FRect viewport{-g.camera.x, -g.camera.y, (float)g.width,
+                     (float)g.height};
 
   // Spawn strictly outside by picking an edge instead of rejection sampling
   while (count > 0) {
@@ -62,20 +63,20 @@ void AsteroidManager::spawnWave(int count, tebya::Texture *tex) {
 
     switch (edge) {
     case 0:
-      x = Random::getdouble(0, g.width);
-      y = -margin;
+      x = Random::getdouble(viewport.x, viewport.x + viewport.w);
+      y = viewport.y - margin;
       break; // top
     case 1:
-      x = Random::getdouble(0, g.width);
-      y = g.height + margin;
+      x = Random::getdouble(viewport.x, viewport.x + viewport.w);
+      y = viewport.y + viewport.h + margin;
       break; // bottom
     case 2:
-      x = -margin;
-      y = Random::getdouble(0, g.height);
+      x = viewport.x - margin;
+      y = Random::getdouble(viewport.y, viewport.y + viewport.h);
       break; // left
     case 3:
-      x = g.width + margin;
-      y = Random::getdouble(0, g.height);
+      x = viewport.x + viewport.w + margin;
+      y = Random::getdouble(viewport.y, viewport.y + viewport.h);
       break; // right
     }
 

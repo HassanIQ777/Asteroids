@@ -1,10 +1,11 @@
 #pragma once
 
-#include "Math.hpp"
 #include "Tebya/Texture.hpp"
 #include <SDL2/SDL_rect.h>
 
 namespace Asteroids {
+
+enum class GameObjectType { Player, Asteroid, Bullet };
 
 class GameObject {
 protected:
@@ -15,6 +16,7 @@ protected:
   float speed = 0;
   float rotation_speed = 0;
   float hp = 0;
+  GameObjectType type;
 
 public:
   virtual void update();
@@ -28,6 +30,8 @@ public:
   // setters and getters
   SDL_FRect getHitbox() const { return hitbox; }
   float getSpeed() const { return speed; }
+  GameObjectType getType() const { return type; }
+  float getAngle() const { return angle; }
 
   void setPosition(float x, float y) {
     hitbox.x = x;

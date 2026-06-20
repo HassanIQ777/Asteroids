@@ -93,5 +93,6 @@ void AsteroidManager::spawnWave(int count, tebya::Texture *tex) {
 bool AsteroidManager::empty() const { return asteroids.empty(); }
 
 size_t AsteroidManager::size() const { return asteroids.size(); }
+void AsteroidManager::clear() { asteroids.clear(); }
 
 } // namespace Asteroids

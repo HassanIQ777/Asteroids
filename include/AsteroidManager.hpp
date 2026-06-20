@@ -24,6 +24,7 @@ public:
   void spawnWave(int count, tebya::Texture *tex);
   size_t size() const;
   bool empty() const;
+  void clear();
 
 }; // end of class AsteroidManager
 

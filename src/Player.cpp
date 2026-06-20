@@ -13,7 +13,9 @@ void Player::render() {
   tebya::Globals &g = tebya::Globals::getInstance();
   SDL_FRect render_pos = {hitbox.x + g.camera.x, hitbox.y + g.camera.y,
                           hitbox.w, hitbox.h};
-  texture->render(g, render_pos, angle + degreeToRad(90.0f));
+
+  SDL_Rect player_source = {28, 13, 72, 88};
+  texture->render(g, player_source, render_pos, angle + degreeToRad(90.0f));
 
 #ifdef DEBUG
   g.renderer.drawRectF(render_pos, tebya::Colors::DebugGreen);

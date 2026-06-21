@@ -11,8 +11,8 @@ class BulletManager {
 
 public:
   BulletManager() {}
-  void update(tebya::Globals &g, Player &player);
-  void render(tebya::Globals &g);
+  void update(Player &player);
+  void render();
   // void handleCollisions
 
   void spawn(Player &player, tebya::Texture *tex);

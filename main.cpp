@@ -55,7 +55,7 @@ int main() {
     e.player.update();
     e.player.handleMovement(g);
 
-    e.asteroid_manager.update(g, e.player);
+    e.asteroid_manager.update(e.player);
     if (static Timer t; e.asteroid_manager.size() < 50 && t.elapsed() > .1) {
       e.asteroid_manager.spawnWave(1, tm.getTexture(0));
       t.restart();
@@ -80,13 +80,13 @@ int main() {
     g.camera.x = Asteroids::lerp(g.camera.x, target_camera_x, camera_follow);
     g.camera.y = Asteroids::lerp(g.camera.y, target_camera_y, camera_follow);
 
-    e.bullet_manager.update(g, e.player);
+    e.bullet_manager.update(e.player);
     e.handleCollisions();
 
     // --- draw ---
     e.player.render();
-    e.bullet_manager.render(g);
-    e.asteroid_manager.render(g);
+    e.bullet_manager.render();
+    e.asteroid_manager.render();
 
     text_info.render("HP: " + std::to_string((int)e.player.getHP()), 5, 100,
                      Colors::Amethyst);

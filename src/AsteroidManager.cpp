@@ -12,7 +12,7 @@ AsteroidManager::AsteroidManager() {
   // implement later
 }
 
-void AsteroidManager::update(tebya::Globals &g, Player &player) {
+void AsteroidManager::update(Player &player) {
   if (empty()) // for some reason if we don't do this it seg faults. Hmmmmm....
     return;
   for (std::unique_ptr<Asteroid> &a : asteroids) {
@@ -28,7 +28,7 @@ void AsteroidManager::update(tebya::Globals &g, Player &player) {
                   asteroids.end());
 }
 
-void AsteroidManager::render(tebya::Globals &g) {
+void AsteroidManager::render() {
   if (empty()) // for some reason if we don't do this it seg faults :D
     return;
   for (auto &a : asteroids) {

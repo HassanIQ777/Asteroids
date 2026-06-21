@@ -6,7 +6,7 @@
 
 namespace Asteroids {
 
-void BulletManager::update(tebya::Globals &g, Player &player) {
+void BulletManager::update(Player &player) {
   if (empty())
     return;
 
@@ -23,7 +23,7 @@ void BulletManager::update(tebya::Globals &g, Player &player) {
                 bullets.end());
 }
 
-void BulletManager::render(tebya::Globals &g) {
+void BulletManager::render() {
   if (empty())
     return;
   for (auto &a : bullets) {

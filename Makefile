@@ -1,5 +1,5 @@
 CXX      := g++
-CXXFLAGS := -std=c++20 -Wall -Wextra
+CXXFLAGS := -std=c++20 -Wall
 INCLUDES := -Iinclude -ITebyaEngine/include
 
 BIN_DIR  := bin

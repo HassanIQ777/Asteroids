@@ -23,7 +23,7 @@ public:
   virtual void render();
   void kill();
   bool isAlive() const;
-  virtual void takeDamage(float amount);
+  void takeDamage(float amount);
 
   virtual ~GameObject() = default;
 

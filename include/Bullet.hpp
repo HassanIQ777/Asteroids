@@ -14,6 +14,7 @@ public:
     texture = tex;
     angle = angle_;
     move_angle = angle;
+    type = GameObjectType::Bullet;
   }
 
   void render() override;

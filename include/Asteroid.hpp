@@ -18,6 +18,7 @@ public:
     rotation_speed = (float)Random::getdouble(-2, 2); // can spin either way
     size_modifier = (float)Random::getdouble(1, 3);
     hp = Random::getdouble(1, 3) * size_modifier; // larger = harder to destroy
+    type = GameObjectType::Asteroid;
   }
 
 public:

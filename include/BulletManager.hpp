@@ -13,6 +13,7 @@ public:
   BulletManager() {}
   void update(tebya::Globals &g, Player &player);
   void render(tebya::Globals &g);
+  // void handleCollisions
 
   void spawn(Player &player, tebya::Texture *tex);
   size_t size() const;

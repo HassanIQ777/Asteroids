@@ -13,14 +13,17 @@ public:
     texture = tex;
     hp = 3;
     angle = degreeToRad(90);
+    type = GameObjectType::Player;
   }
-  Player() {}
+  Player() {
+    hp = 3;
+    angle = degreeToRad(90);
+    type = GameObjectType::Player;
+  }
 
   void init(SDL_FRect hitbox_, tebya::Texture *tex) {
     hitbox = hitbox_;
     texture = tex;
-    hp = 3;
-    angle = degreeToRad(90);
   }
 
   void render() override;

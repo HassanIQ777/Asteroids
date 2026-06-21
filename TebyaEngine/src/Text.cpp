@@ -132,8 +132,12 @@ void Text::clear() {
   for (auto &[text, texture] : textureCache) {
     SDL_DestroyTexture(texture);
   }
-  if (font)
+  textureCache.clear(); // ← also missing, dangling pointers in the map
+
+  if (font) {
     TTF_CloseFont(font);
+    font = nullptr; // ← guards against double-close if clear() called twice
+  }
 }
 
 } // namespace tebya

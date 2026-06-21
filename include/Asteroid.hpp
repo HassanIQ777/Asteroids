@@ -33,6 +33,18 @@ public:
     type = GameObjectType::Asteroid;
   }
 
+  Asteroid(SDL_FPoint coords, tebya::Texture *tex) {
+    size_modifier = (float)Random::getdouble(1, 5);
+    hitbox = {coords.x, coords.y, 30 * size_modifier, 30 * size_modifier};
+    speed = Random::getdouble(30, 150);
+    texture = tex;
+    angle = (float)Random::getdouble(0, 2 * M_PI); // random direction
+    move_angle = angle;
+    rotation_speed = (float)Random::getdouble(-2, 2); // can spin either way
+    hp = 5 * size_modifier; // larger = harder to destroy
+    type = GameObjectType::Asteroid;
+  }
+
 public:
   void render() override;
 
@@ -44,6 +56,11 @@ public:
   static std::unique_ptr<Asteroid> create(SDL_FRect hitbox, float speed,
                                           tebya::Texture *tex, float size) {
     return std::make_unique<Asteroid>(hitbox, speed, tex, size);
+  }
+
+  static std::unique_ptr<Asteroid> create(SDL_FPoint coords,
+                                          tebya::Texture *tex) {
+    return std::make_unique<Asteroid>(coords, tex);
   }
 
   float size_modifier;

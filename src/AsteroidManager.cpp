@@ -54,15 +54,10 @@ void AsteroidManager::spawnWave(int count, tebya::Texture *tex) {
 
   // Spawn strictly outside by picking an edge instead of rejection sampling
   while (count > 0) {
-    float size = std::max(
-        20.0f,
-        (float)Random::normalDistribution(
-            100,
-            25)); // this is bad but we need to calculate size from the start :L
     float x, y;
     int edge = Random::getint(0, 3);
-    float margin = size; // this is how far we push each asteroid on spawn (to
-                         // prevent it suddenly apprearing on-screen)
+    float margin = 300; // this is how far we push each asteroid on spawn (to
+                        // prevent it suddenly apprearing on-screen)
 
     switch (edge) {
     case 0:
@@ -83,10 +78,9 @@ void AsteroidManager::spawnWave(int count, tebya::Texture *tex) {
       break; // right
     }
 
-    SDL_FRect hitbox = {x, y, size, size};
-    float speed = Random::getdouble(30, 150); // pixels/sec, not 0.5–3
+    SDL_FPoint coords = {x, y};
 
-    asteroids.push_back(Asteroid::create(hitbox, speed, asteroid_texture));
+    asteroids.push_back(Asteroid::create(coords, asteroid_texture));
     count--;
   }
 }

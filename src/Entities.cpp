@@ -1,4 +1,5 @@
 #include "../include/Entities.hpp"
+#include "Tebya/Audio.hpp"
 #include <SDL2/SDL_rect.h>
 
 namespace Asteroids {
@@ -8,9 +9,10 @@ void Entities::handleCollisions() {
     for (auto &bullet : bullet_manager.getBullets()) {
       if (SDL_HasIntersectionF(&asteroid->getHitbox(), &bullet->getHitbox())) {
         asteroid->takeDamage(bullet->getDamage());
-        // if (!asteroid->isAlive()) {
-        //   asteroid_manager.onHit(asteroid);
-        // }
+        if (!asteroid->isAlive()) {
+          static tebya::Audio destroy_asteroid{"assets/explosion.wav"};
+          destroy_asteroid.play();
+        }
         bullet->kill();
       }
     }

@@ -38,8 +38,9 @@ int main() {
   g.camera.y =
       (float)g.height * 0.5f - (player_hitbox.y + player_hitbox.h * 0.5f);
 
+  Text text_title{g, "assets/Xirod.otf", 30};
   Text text_info{g, "assets/Xirod.otf", 20};
-  Audio audio_shoot_bullet{"assets/shoot.wav"};
+
   //
 
   while (g.running) {
@@ -63,6 +64,8 @@ int main() {
       if (static Timer t{1}; t.elapsed() > .2f) {
         e.bullet_manager.spawn(e.player, tm.getTexture(2));
         // play audio
+        static Audio audio_shoot_bullet{"assets/shoot.wav"};
+        audio_shoot_bullet.setVolume(50);
         audio_shoot_bullet.play();
         t.restart();
       }
@@ -84,21 +87,20 @@ int main() {
     e.player.render();
     e.bullet_manager.render(g);
     e.asteroid_manager.render(g);
-    text_info.render("Asteroids: " + std::to_string(e.asteroid_manager.size()),
-                     5, 5, Colors::Amethyst);
-    text_info.render("Bullets: " + std::to_string(e.bullet_manager.size()), 5,
-                     50, Colors::Amethyst);
 
     text_info.render("HP: " + std::to_string((int)e.player.getHP()), 5, 100,
                      Colors::Amethyst);
 
-    text_info.render("Asteroids", g.width / 2, 5, Colors::DeepPink, true);
+    text_title.render("Asteroids", g.width / 2, 5, Colors::DeepPink, true);
 
     present();
   }
 
   e.asteroid_manager.clear();
   e.bullet_manager.clear();
+
+  text_info.clear();
+  text_title.clear();
 
   quit(g);
   return 0;

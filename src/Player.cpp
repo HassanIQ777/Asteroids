@@ -1,6 +1,7 @@
 #include "../include/Player.hpp"
 #include "../libutils/src/Timer.hpp"
 #include "Math.hpp"
+#include "Tebya/Audio.hpp"
 #include "Tebya/Colors.hpp"
 #include "Tebya/Input.hpp"
 #include <algorithm>
@@ -37,6 +38,8 @@ void Player::takeDamage() {
   if (!hasInvincibility) {
     hasInvincibility = true;
     hp -= 1;
+    static tebya::Audio player_hurt{"assets/hurt.wav"};
+    player_hurt.play();
     if (hp < 0) {
       alive = false;
       hp = 0;

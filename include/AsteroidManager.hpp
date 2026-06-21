@@ -18,7 +18,7 @@ public:
   AsteroidManager();
   void update(tebya::Globals &g, Player &player);
   void render(tebya::Globals &g);
-  void onHit(Asteroid *a);
+  void onHit(std::unique_ptr<Asteroids::Asteroid> &a);
   bool checkCollision(SDL_FRect other); // for bullets/player to query (and also
                                         // other asteroids)
   void spawnWave(int count, tebya::Texture *tex);

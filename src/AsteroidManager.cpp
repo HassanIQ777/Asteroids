@@ -36,11 +36,12 @@ void AsteroidManager::render(tebya::Globals &g) {
   }
 }
 
-void AsteroidManager::onHit(Asteroid *a) {
+void AsteroidManager::onHit(std::unique_ptr<Asteroids::Asteroid> &a) {
   if (a->size_modifier > 1) {
     for (int i = 0; i < 2; i++) {
-      asteroids.push_back(
-          Asteroid::create(a->getHitbox(), a->getSpeed(), asteroid_texture));
+      asteroids.push_back(Asteroid::create(
+          a->getHitbox(), a->getSpeed() + Random::getdouble(-50, 50),
+          asteroid_texture, std::fmax(1, a->size_modifier - 1)));
     }
   }
   a->kill();

@@ -1,4 +1,5 @@
 #include "../include/Player.hpp"
+#include "../libutils/src/Timer.hpp"
 #include "Math.hpp"
 #include "Tebya/Colors.hpp"
 #include "Tebya/Input.hpp"
@@ -20,6 +21,28 @@ void Player::render() {
 #ifdef DEBUG
   g.renderer.drawRectF(render_pos, tebya::Colors::DebugGreen);
 #endif
+}
+
+void Player::takeDamage() {
+
+  if (hasInvincibility) {
+    static Timer t;
+    if (t.elapsed() > 3.0f) {
+      hasInvincibility = false;
+      t.restart();
+    }
+    return; // don't take damage
+  }
+
+  if (!hasInvincibility) {
+    hasInvincibility = true;
+    hp -= 1;
+    if (hp < 0) {
+      alive = false;
+      hp = 0;
+      return;
+    }
+  }
 }
 
 void Player::handleMovement(tebya::Globals &g) {

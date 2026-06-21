@@ -88,6 +88,9 @@ int main() {
                          std::to_string(entities.bullet_manager.size()),
                      5, 50, Colors::Amethyst);
 
+    text_info.render("HP: " + std::to_string((int)entities.player.getHP()), 5,
+                     100, Colors::Amethyst);
+
     text_info.render("Asteroids", g.width / 2, 5, Colors::DeepPink, true);
 
     present();

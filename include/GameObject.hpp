@@ -32,6 +32,7 @@ public:
   float getSpeed() const { return speed; }
   GameObjectType getType() const { return type; }
   float getAngle() const { return angle; }
+  float getHP() const { return hp; }
 
   void setPosition(float x, float y) {
     hitbox.x = x;

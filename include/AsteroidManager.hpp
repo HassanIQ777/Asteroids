@@ -25,6 +25,7 @@ public:
   size_t size() const;
   bool empty() const;
   void clear();
+  std::vector<std::unique_ptr<Asteroid>> &getAsteroids() { return asteroids; }
 
 }; // end of class AsteroidManager
 

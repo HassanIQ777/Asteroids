@@ -19,6 +19,7 @@ public:
   size_t size() const;
   bool empty() const;
   void clear();
+  std::vector<std::unique_ptr<Bullet>> &getBullets() { return bullets; }
 }; // end of class BulletManager
 
 } // namespace Asteroids

@@ -7,6 +7,7 @@
 namespace Asteroids {
 
 class Player : public GameObject {
+  bool hasInvincibility = false;
 public:
   Player(SDL_FRect hitbox_, tebya::Texture *tex) {
     hitbox = hitbox_;
@@ -27,6 +28,7 @@ public:
   }
 
   void render() override;
+  void takeDamage();
   void handleMovement(tebya::Globals &g);
 }; // end of class Player
 

@@ -10,6 +10,8 @@ struct Entities {
     AsteroidManager asteroid_manager;
     BulletManager bullet_manager;
     Player player;
+
+    void handleCollisions();
 };
 
 } // namespace Asteroids

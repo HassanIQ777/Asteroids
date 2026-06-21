@@ -75,6 +75,7 @@ int main() {
     g.camera.y = Asteroids::lerp(g.camera.y, target_camera_y, camera_follow);
 
     entities.bullet_manager.update(g, entities.player);
+    entities.handleCollisions();
 
     // --- draw ---
     entities.player.render();

@@ -6,6 +6,7 @@
 namespace Asteroids {
 
 class Bullet : public GameObject {
+  float damage;
 
 public:
   Bullet(SDL_FRect hitbox_, float speed_, tebya::Texture *tex, float angle_) {
@@ -14,6 +15,7 @@ public:
     texture = tex;
     angle = angle_;
     move_angle = angle;
+    damage = 5;
     type = GameObjectType::Bullet;
   }
 
@@ -23,6 +25,8 @@ public:
                                         tebya::Texture *tex, float angle) {
     return std::make_unique<Bullet>(hitbox, speed, tex, angle);
   }
+
+  float getDamage() const { return damage; }
 
 }; // end of class Bullet
 

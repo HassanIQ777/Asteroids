@@ -28,7 +28,7 @@ public:
   virtual ~GameObject() = default;
 
   // setters and getters
-  SDL_FRect getHitbox() const { return hitbox; }
+  const SDL_FRect &getHitbox() const { return hitbox; }
   float getSpeed() const { return speed; }
   GameObjectType getType() const { return type; }
   float getAngle() const { return angle; }

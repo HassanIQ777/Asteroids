@@ -43,7 +43,7 @@ int main() {
   Text text_info{g, "assets/Xirod.otf", 20};
   Text text_button{g, "assets/Xirod.otf", 25};
 
-  Asteroids::UI_State ui_state = Asteroids::UI_State::DeathMenu;
+  Asteroids::UI_State ui_state = Asteroids::UI_State::StartMenu;
   Scene start_menu;
   Asteroids::initStartMenu(g, start_menu, text_button, ui_state);
   Scene death_menu;

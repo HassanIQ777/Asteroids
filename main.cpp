@@ -1,4 +1,3 @@
-#include "Entities.hpp"
 #include "Math.hpp"
 #include "Tebya/Audio.hpp"
 #include "Tebya/Colors.hpp"
@@ -47,7 +46,7 @@ int main() {
   Scene start_menu;
   Asteroids::initStartMenu(g, start_menu, text_button, ui_state);
   Scene death_menu;
-  Asteroids::initDeathMenu(g, death_menu, text_button, ui_state);
+  Asteroids::initDeathMenu(g, death_menu, text_button, ui_state, e);
   //
 
   while (g.running) {
@@ -67,6 +66,9 @@ int main() {
       break;
 
     case Asteroids::UI_State::DeathMenu:
+      text_button.render("You Died!", g.width / 2,
+                         static_cast<float>(g.height) * .75 / 2 - 75,
+                         Colors::DamageRed);
       death_menu.update();
       death_menu.render();
       break;
@@ -110,6 +112,9 @@ int main() {
 
       text_info.render("HP: " + std::to_string((int)e.player.getHP()), 5, 100,
                        Colors::Amethyst);
+      if (e.player.getHP() == 0) {
+        ui_state = Asteroids::UI_State::DeathMenu;
+      }
 
       break;
     }

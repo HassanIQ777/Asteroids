@@ -37,6 +37,7 @@ void Player::takeDamage() {
   }
 
   if (!hasInvincibility) {
+    damage_flash.trigger();
     hasInvincibility = true;
     hp -= 1;
     static tebya::Audio player_hurt{"assets/hurt.wav"};

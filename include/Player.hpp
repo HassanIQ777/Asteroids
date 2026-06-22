@@ -1,5 +1,6 @@
 #pragma once
 
+#include "DamageFlash.hpp"
 #include "GameObject.hpp"
 #include "Math.hpp"
 #include "Tebya/Globals.hpp"
@@ -37,6 +38,8 @@ public:
     alive = true;
   }
   void renderHearts(tebya::Globals &g, tebya::Texture *tex);
+
+  DamageFlash damage_flash;
 }; // end of class Player
 
 } // namespace Asteroids

@@ -59,6 +59,7 @@ int main() {
     if (g.input.isKeyJustPressed(KeyCode::ESCAPE)) {
       ui_state = Asteroids::UI_State::StartMenu;
     }
+    e.player.damage_flash.update(dt);
 
     switch (ui_state) {
     case Asteroids::UI_State::StartMenu:
@@ -115,6 +116,7 @@ int main() {
       if (e.player.getHP() == 0) {
         ui_state = Asteroids::UI_State::DeathMenu;
       }
+      e.player.damage_flash.render(g);
 
       break;
     }

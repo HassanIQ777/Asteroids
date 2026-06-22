@@ -28,7 +28,8 @@ inline void initStartMenu(tebya::Globals &g, Scene &start_menu,
 
   // quit button
   start_menu.add<tebya::Button>(
-      "quit", SDL_FRect{5, start_height + btn_height, 150, btn_height},
+      "quit",
+      SDL_FRect{5, start_height + btn_height + btn_height / 2, 150, btn_height},
       [&]() { g.running = false; });
 
   start_menu.get("quit")->setLabel(&label_text, "Quit");

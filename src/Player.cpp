@@ -4,6 +4,7 @@
 #include "Tebya/Audio.hpp"
 #include "Tebya/Colors.hpp"
 #include "Tebya/Input.hpp"
+#include <SDL2/SDL_rect.h>
 #include <algorithm>
 
 namespace Asteroids {
@@ -73,7 +74,17 @@ void Player::handleMovement(tebya::Globals &g) {
   speed *= 0.99f; // friction (i guess...)
 
   // SHOOT BULLETS
-  if (g.input.isKeyPressed(tebya::KeyCode::SPACE)) {
+  // if (g.input.isKeyPressed(tebya::KeyCode::SPACE)) {
+  // }
+}
+
+void Player::renderHearts(tebya::Globals &g, tebya::Texture *tex) {
+  constexpr float size = 50;
+  for (int i = 0; i < hp; i++) {
+    float x = 10 + i * size;
+    float y = 50;
+    SDL_FRect rect = {x, y, size, size};
+    tex->render(g, rect);
   }
 }
 

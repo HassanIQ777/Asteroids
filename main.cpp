@@ -8,7 +8,6 @@
 #include "scenes.hpp"
 #include <SDL2/SDL_render.h>
 #include <algorithm>
-#include <cmath>
 #include <memory>
 #include <string>
 
@@ -26,6 +25,7 @@ int main() {
   tm.addTexture(std::make_unique<Texture>(g, "assets/Asteroid.png", 0));
   tm.addTexture(std::make_unique<Texture>(g, "assets/Kla'ed.png", 1));
   tm.addTexture(std::make_unique<Texture>(g, "assets/03.png", 2));
+  tm.addTexture(std::make_unique<Texture>(g, "assets/heart.png", 3));
 
   Asteroids::Entities e;
 
@@ -110,9 +110,8 @@ int main() {
       e.player.render();
       e.bullet_manager.render();
       e.asteroid_manager.render();
+      e.player.renderHearts(g, tm.getTexture(3));
 
-      text_info.render("HP: " + std::to_string((int)e.player.getHP()), 5, 100,
-                       Colors::Amethyst);
       if (e.player.getHP() == 0) {
         ui_state = Asteroids::UI_State::DeathMenu;
       }

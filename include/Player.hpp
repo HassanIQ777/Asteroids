@@ -3,6 +3,7 @@
 #include "GameObject.hpp"
 #include "Math.hpp"
 #include "Tebya/Globals.hpp"
+#include "Tebya/Texture.hpp"
 
 namespace Asteroids {
 
@@ -35,6 +36,7 @@ public:
     hp = 3;
     alive = true;
   }
+  void renderHearts(tebya::Globals &g, tebya::Texture *tex);
 }; // end of class Player
 
 } // namespace Asteroids

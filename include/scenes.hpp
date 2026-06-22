@@ -18,7 +18,7 @@ inline void initStartMenu(tebya::Globals &g, Scene &start_menu,
 
   // Play button
   start_menu.add<tebya::Button>("play",
-                                SDL_FRect{5, start_height, 150, btn_height},
+                                SDL_FRect{5, start_height, 250, btn_height},
                                 [&]() { ui_state = UI_State::Playing; });
 
   start_menu.get("play")->setLabel(&label_text, "Play");

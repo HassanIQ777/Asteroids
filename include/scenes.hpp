@@ -14,12 +14,13 @@ inline void initStartMenu(tebya::Globals &g, Scene &start_menu,
                           Asteroids::UI_State &ui_state) {
 
   static constexpr float btn_height = 75;
-  static const float start_height = static_cast<float>(g.height) / 2;
+  static const float start_height = static_cast<float>(g.height) * .75 / 2;
+  static const float x = static_cast<float>(g.width) / 2;
 
   // Play button
-  start_menu.add<tebya::Button>("play",
-                                SDL_FRect{5, start_height, 250, btn_height},
-                                [&]() { ui_state = UI_State::Playing; });
+  start_menu.add<tebya::Button>(
+      "play", SDL_FRect{x - 125, start_height, 250, btn_height},
+      [&]() { ui_state = UI_State::Playing; });
 
   start_menu.get("play")->setLabel(&label_text, "Play");
   start_menu.get("play")->setColors(
@@ -29,7 +30,8 @@ inline void initStartMenu(tebya::Globals &g, Scene &start_menu,
   // quit button
   start_menu.add<tebya::Button>(
       "quit",
-      SDL_FRect{5, start_height + btn_height + btn_height / 2, 150, btn_height},
+      SDL_FRect{x - 75, start_height + btn_height + btn_height / 2, 150,
+                btn_height},
       [&]() { g.running = false; });
 
   start_menu.get("quit")->setLabel(&label_text, "Quit");

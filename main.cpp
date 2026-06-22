@@ -41,13 +41,13 @@ int main() {
 
   Text text_title{g, "assets/Xirod.otf", 30};
   Text text_info{g, "assets/Xirod.otf", 20};
-  Text button_text{g, "assets/Xirod.otf", 25};
+  Text text_button{g, "assets/Xirod.otf", 25};
 
   Asteroids::UI_State ui_state = Asteroids::UI_State::StartMenu;
   Scene start_menu;
-  Asteroids::initStartMenu(g, start_menu, button_text, ui_state);
+  Asteroids::initStartMenu(g, start_menu, text_button, ui_state);
   Scene death_menu;
-  Asteroids::initDeathMenu(g, death_menu, button_text, ui_state);
+  Asteroids::initDeathMenu(g, death_menu, text_button, ui_state);
   //
 
   while (g.running) {
@@ -124,6 +124,7 @@ int main() {
 
   text_info.clear();
   text_title.clear();
+  text_button.clear();
 
   quit(g);
   return 0;

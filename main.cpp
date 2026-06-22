@@ -8,6 +8,7 @@
 #include "scenes.hpp"
 #include <SDL2/SDL_render.h>
 #include <algorithm>
+#include <cmath>
 #include <memory>
 #include <string>
 
@@ -42,7 +43,7 @@ int main() {
   Text text_info{g, "assets/Xirod.otf", 20};
   Text text_button{g, "assets/Xirod.otf", 25};
 
-  Asteroids::UI_State ui_state = Asteroids::UI_State::StartMenu;
+  Asteroids::UI_State ui_state = Asteroids::UI_State::DeathMenu;
   Scene start_menu;
   Asteroids::initStartMenu(g, start_menu, text_button, ui_state);
   Scene death_menu;
@@ -66,9 +67,9 @@ int main() {
       break;
 
     case Asteroids::UI_State::DeathMenu:
-      text_button.render("You Died!", g.width / 2,
-                         static_cast<float>(g.height) * .75 / 2 - 75,
-                         Colors::DamageRed);
+      text_title.render("You Died!", g.width / 2,
+                        static_cast<float>(g.height) * .75 / 2 - 75,
+                        Colors::DamageRed, true);
       death_menu.update();
       death_menu.render();
       break;

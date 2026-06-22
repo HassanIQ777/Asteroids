@@ -46,6 +46,8 @@ int main() {
   Asteroids::UI_State ui_state = Asteroids::UI_State::StartMenu;
   Scene start_menu;
   Asteroids::initStartMenu(g, start_menu, button_text, ui_state);
+  Scene death_menu;
+  Asteroids::initDeathMenu(g, death_menu, button_text, ui_state);
   //
 
   while (g.running) {
@@ -65,6 +67,8 @@ int main() {
       break;
 
     case Asteroids::UI_State::DeathMenu:
+      death_menu.update();
+      death_menu.render();
       break;
 
     case Asteroids::UI_State::Playing:

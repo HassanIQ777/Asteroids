@@ -37,4 +37,8 @@ inline void initStartMenu(tebya::Globals &g, Scene &start_menu,
       tebya::Colors::WithAlpha(tebya::Colors::ShadowBlack, 100));
 }
 
+inline void initDeathMenu(tebya::Globals &g, Scene &death_menu,
+                          tebya::Text &label_text,
+                          Asteroids::UI_State &ui_state) {}
+
 } // namespace Asteroids

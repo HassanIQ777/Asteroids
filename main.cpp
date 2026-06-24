@@ -52,7 +52,6 @@ int main() {
 
   while (g.running) {
     update();
-    g.renderer.clear(Colors::GameBlack);
 
     // --- logic ---
     float dt = g.delta_time.deltaTime();
@@ -63,11 +62,13 @@ int main() {
 
     switch (ui_state) {
     case Asteroids::UI_State::StartMenu:
+      g.renderer.clear(Colors::Black);
       start_menu.update();
       start_menu.render();
       break;
 
     case Asteroids::UI_State::DeathMenu:
+      g.renderer.clear(Colors::ShadowBlack);
       text_title.render("You Died!", g.width / 2,
                         static_cast<float>(g.height) * .75 / 2 - 75,
                         Colors::DamageRed, true);
@@ -76,6 +77,7 @@ int main() {
       break;
 
     case Asteroids::UI_State::Playing:
+      g.renderer.clear(Colors::GameBlack);
       e.player.update();
       e.player.handleMovement(g);
 

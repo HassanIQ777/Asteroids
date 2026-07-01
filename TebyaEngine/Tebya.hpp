@@ -34,7 +34,6 @@ inline void update() {
   globals.delta_time.update();
   globals.fps_counter.update(globals.delta_time.deltaTime());
   globals.input.update(globals.e);
-  globals.input.pollKeyboard();
   while (SDL_PollEvent(&globals.e)) {
     switch (globals.e.type) {
     case SDL_QUIT:

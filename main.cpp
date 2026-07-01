@@ -7,6 +7,7 @@
 #include "TebyaEngine/Tebya.hpp"
 #include "scenes.hpp"
 #include <SDL2/SDL_render.h>
+#include <SDL2/SDL_timer.h>
 #include <algorithm>
 #include <cmath>
 #include <memory>
@@ -49,23 +50,22 @@ int main() {
   Asteroids::initStartMenu(g, start_menu, text_button, ui_state);
   Scene death_menu;
   Asteroids::initDeathMenu(g, death_menu, text_button, ui_state, e);
+  bool paused = false;
   //
 
   while (g.running) {
     update();
-
     // --- logic ---
     float dt = g.delta_time.deltaTime();
-    if (g.input.isKeyJustPressed(KeyCode::ESCAPE)) {
-      ui_state = Asteroids::UI_State::StartMenu;
-    }
-    e.player.damage_flash.update(dt);
 
     switch (ui_state) {
     case Asteroids::UI_State::StartMenu:
       g.renderer.clear(Colors::Black);
       start_menu.update();
       start_menu.render();
+      if (g.input.isKeyJustPressed(KeyCode::SPACE)) {
+        ui_state = Asteroids::UI_State::Playing;
+      }
       break;
 
     case Asteroids::UI_State::DeathMenu:
@@ -75,43 +75,54 @@ int main() {
                         Colors::DamageRed, true);
       death_menu.update();
       death_menu.render();
+      if (g.input.isKeyJustPressed(KeyCode::ESCAPE)) {
+        g.running = false;
+      }
       break;
 
     case Asteroids::UI_State::Playing:
-      g.renderer.clear(Colors::GameBlack);
-      e.player.update();
-      e.player.handleMovement(g);
-
-      e.asteroid_manager.update(e.player);
-      if (static Timer t; e.asteroid_manager.size() < 50 && t.elapsed() > .1) {
-        e.asteroid_manager.spawnWave(1, tm.getTexture(0));
-        t.restart();
+      if (g.input.isKeyJustPressed(KeyCode::ESCAPE)) {
+        paused = !paused;
       }
-      if (g.input.isKeyPressed(KeyCode::SPACE)) {
-        if (static Timer t{1}; t.elapsed() > .2f) {
-          e.bullet_manager.spawn(e.player, tm.getTexture(2));
-          // play audio
-          static Audio audio_shoot_bullet{"assets/shoot.wav"};
-          audio_shoot_bullet.setVolume(50);
-          audio_shoot_bullet.play();
+      if (!paused) {
+
+        e.player.update();
+        e.player.handleMovement(g);
+
+        e.asteroid_manager.update(e.player);
+        if (static Timer t;
+            e.asteroid_manager.size() < 50 && t.elapsed() > .1) {
+          e.asteroid_manager.spawnWave(1, tm.getTexture(0));
           t.restart();
         }
+        if (g.input.isKeyPressed(KeyCode::SPACE)) {
+          if (static Timer t{1}; t.elapsed() > .2f) {
+            e.bullet_manager.spawn(e.player, tm.getTexture(2));
+            // play audio
+            static Audio audio_shoot_bullet{"assets/shoot.wav"};
+            audio_shoot_bullet.setVolume(50);
+            audio_shoot_bullet.play();
+            t.restart();
+          }
+        }
+
+        player_hitbox = e.player.getHitbox();
+        float target_camera_x =
+            (float)g.width * 0.5f - (player_hitbox.x + player_hitbox.w * 0.5f);
+        float target_camera_y =
+            (float)g.height * 0.5f - (player_hitbox.y + player_hitbox.h * 0.5f);
+        float camera_follow = std::min(dt * 8.0f, 1.0f);
+        g.camera.x = Asteroids::lerp(g.camera.x, target_camera_x,
+                                     1 - std::exp(-camera_follow));
+        g.camera.y = Asteroids::lerp(g.camera.y, target_camera_y,
+                                     1 - std::exp(-camera_follow));
+
+        e.bullet_manager.update(e.player);
+        e.handleCollisions();
+        e.player.damage_flash.update(dt);
       }
-
-      player_hitbox = e.player.getHitbox();
-      float target_camera_x =
-          (float)g.width * 0.5f - (player_hitbox.x + player_hitbox.w * 0.5f);
-      float target_camera_y =
-          (float)g.height * 0.5f - (player_hitbox.y + player_hitbox.h * 0.5f);
-      float camera_follow = std::min(dt * 8.0f, 1.0f);
-      g.camera.x = Asteroids::lerp(g.camera.x, target_camera_x,
-                                   1 - std::exp(-camera_follow));
-      g.camera.y = Asteroids::lerp(g.camera.y, target_camera_y,
-                                   1 - std::exp(-camera_follow));
-
-      e.bullet_manager.update(e.player);
-      e.handleCollisions();
       // --- draw ---
+      g.renderer.clear(Colors::GameBlack);
       e.player.render();
       e.bullet_manager.render();
       e.asteroid_manager.render();
@@ -126,6 +137,10 @@ int main() {
     }
 
     text_title.render("Asteroids", g.width / 2, 5, Colors::DeepPink, true);
+    if (paused) {
+      text_info.render("Paused", g.width / 2, 50, Colors::MediumVioletRed,
+                       true);
+    }
 
     present();
   }

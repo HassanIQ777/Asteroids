@@ -13,8 +13,7 @@ InputManager::InputManager() {
 InputManager::~InputManager() = default;
 
 void InputManager::update(const SDL_Event &event) {
-  prev_mouse_state = mouse_state;
-
+  reset();
   if (event.type == SDL_MOUSEMOTION) {
     mouse_state.x = event.motion.x;
     mouse_state.y = event.motion.y;
@@ -41,9 +40,10 @@ void InputManager::update(const SDL_Event &event) {
 }
 
 void InputManager::reset() {
-  prev_mouse_state = mouse_state;
-  scrollDelta = 0; // Reset scroll each frame!
+  prev_mouse_state = mouse_state; // snapshot BEFORE new events arrive
+  scrollDelta = 0;
   scrollDeltaX = 0;
+  pollKeyboard(); // also put this here if it isn't called elsewhere
 }
 
 void InputManager::pollKeyboard() {
@@ -52,10 +52,6 @@ void InputManager::pollKeyboard() {
     uint8_t &history = key_history[i];
     history = (history << 1) | (keystate[i] ? 1 : 0);
   }
-}
-
-bool InputManager::isKeyPressed(KeyCode key) const {
-  return keystate[static_cast<int>(key)];
 }
 
 bool InputManager::isMouseButtonPressed(MouseButton button) const {
@@ -72,13 +68,28 @@ bool InputManager::isMouseButtonPressed(MouseButton button) const {
   return false;
 }
 
+bool InputManager::isKeyPressed(KeyCode key) const {
+  const int index = static_cast<int>(key);
+  return index >= 0 && index < key_count && (keystate[index] != 0);
+}
+
 bool InputManager::isKeyJustPressed(KeyCode key) const {
   const int index = static_cast<int>(key);
-  return index >= 0 && index < key_count && keystate[index] != 0;
+  if (index < 0 || index >= key_count)
+    return false;
+  // history bits: [...][prev][current]
+  // just pressed = was 0, now 1 → 0b01
+  auto it = key_history.find(index);
+  return it != key_history.end() && (it->second & 0b11) == 0b01;
 }
 
 bool InputManager::isKeyJustReleased(KeyCode key) const {
-  return !keystate[static_cast<int>(key)];
+  const int index = static_cast<int>(key);
+  if (index < 0 || index >= key_count)
+    return false;
+  // just released = was 1, now 0 → 0b10
+  auto it = key_history.find(index);
+  return it != key_history.end() && (it->second & 0b11) == 0b10;
 }
 
 void InputManager::onKeyPress(KeyCode key, std::function<void()> callback) {

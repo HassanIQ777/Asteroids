@@ -12,6 +12,7 @@ void Entities::handleCollisions() {
         if (!asteroid->isAlive()) {
           static tebya::Audio destroy_asteroid{"assets/explosion.wav"};
           destroy_asteroid.play();
+          asteroid_manager.onHit(asteroid);
         }
         bullet->kill();
       }
@@ -20,6 +21,16 @@ void Entities::handleCollisions() {
     if (SDL_HasIntersectionF(&asteroid->getHitbox(), &player.getHitbox())) {
       player.takeDamage();
     }
+
+    // for (auto &asteroid_b : asteroid_manager.getAsteroids()) {
+    //   if (SDL_HasIntersectionF(&asteroid->getHitbox(),
+    //                            &asteroid_b->getHitbox())) {
+
+    //     asteroid_b->kill();
+    //   }
+    // }
+
+    // if(Asteroid::
   }
 }
 

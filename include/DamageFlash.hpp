@@ -12,7 +12,7 @@ class DamageFlash {
 
   // tweak these to taste
   static constexpr float PEAK_ALPHA = 180.0f;
-  static constexpr float DECAY = PEAK_ALPHA / 0.3f; // alpha units per second
+  static constexpr float DECAY = PEAK_ALPHA / 1.0f; // alpha units per second
 
 public:
   void trigger() {

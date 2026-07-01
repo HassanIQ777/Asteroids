@@ -8,6 +8,7 @@
 #include "scenes.hpp"
 #include <SDL2/SDL_render.h>
 #include <algorithm>
+#include <cmath>
 #include <memory>
 #include <string>
 
@@ -103,12 +104,13 @@ int main() {
       float target_camera_y =
           (float)g.height * 0.5f - (player_hitbox.y + player_hitbox.h * 0.5f);
       float camera_follow = std::min(dt * 8.0f, 1.0f);
-      g.camera.x = Asteroids::lerp(g.camera.x, target_camera_x, camera_follow);
-      g.camera.y = Asteroids::lerp(g.camera.y, target_camera_y, camera_follow);
+      g.camera.x = Asteroids::lerp(g.camera.x, target_camera_x,
+                                   1 - std::exp(-camera_follow));
+      g.camera.y = Asteroids::lerp(g.camera.y, target_camera_y,
+                                   1 - std::exp(-camera_follow));
 
       e.bullet_manager.update(e.player);
       e.handleCollisions();
-
       // --- draw ---
       e.player.render();
       e.bullet_manager.render();

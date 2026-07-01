@@ -2,3 +2,4 @@ obj/
 bin/
 TebyaEngine/obj/
 TebyaEngine/lib/
+.vscode
